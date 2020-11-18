@@ -1,40 +1,49 @@
-DROP DATABASE IF EXISTS registration;
+-- Run in a terminal from the project folder:
+-- psql postgres -f database.txt
 
-CREATE DATABASE registration;
+-- Create database and revoke public permissions
+DROP DATABASE IF EXISTS movies;
+CREATE DATABASE movies;
+\c movies
+REVOKE ALL ON DATABASE movies FROM public;
+REVOKE CREATE ON SCHEMA public FROM PUBLIC;
 
-USE registration;
-
-CREATE TABLE user_level (
-  level_id TINYINT UNSIGNED NOT NULL,
-  description VARCHAR(45) NOT NULL,
-  PRIMARY KEY (level_id)
-);
-
-CREATE TABLE users (
-  user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  first_name VARCHAR(45) NOT NULL,
-  last_name VARCHAR(45) NOT NULL,
-  email VARCHAR(60) NOT NULL UNIQUE,
-  password VARCHAR(255) NOT NULL,
-  user_level TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  activated CHAR(36) NULL,
-  registration_date DATETIME NOT NULL DEFAULT NOW(),
-  modified DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
-  PRIMARY KEY (user_id),
-  FOREIGN KEY (user_level) REFERENCES user_level(level_id) ON UPDATE CASCADE
+-- Create tables and instert some data
+CREATE TABLE IF NOT EXISTS categories (
+  cat_id SMALLSERIAL PRIMARY KEY,
+  description VARCHAR(50) NOT NULL
 );
 
 INSERT INTO
-  user_level (level_id, description)
+  categories (description)
 VALUES
-  (0, 'General Access'),
-  (1, 'Administrator');
+  ('Action'),
+  ('Comedy'),
+  ('Romance');
 
-CREATE
-OR REPLACE VIEW show_users AS
-SELECT
-  *
-FROM
-  users
-ORDER BY
-  last_name ASC;
+CREATE TABLE IF NOT EXISTS movies (
+  movie_id SERIAL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  price DECIMAL(5, 2) NOT NULL DEFAULT 0.00,
+  cat_id SMALLINT REFERENCES categories (cat_id) ON UPDATE CASCADE
+);
+
+INSERT INTO
+  movies (name, price, cat_id)
+VALUES
+  ('Terminator', 9.99, 1),
+  ('Dumb and Dumber', 12.99, 2),
+  ('The Princes Bride', 8.99, 3);
+
+DROP VIEW IF EXISTS show_movies;
+CREATE VIEW show_movies AS
+    SELECT *
+    FROM movies
+    ORDER BY name ASC;
+
+-- Create user and grant access
+DROP USER IF EXISTS webuser;
+CREATE USER webuser WITH ENCRYPTED PASSWORD '12345';
+GRANT CONNECT ON DATABASE mydb TO webuser;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO webuser;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO webuser;
