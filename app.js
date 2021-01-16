@@ -11,5 +11,5 @@ require('./startup/logger');
 require('./startup/routes')(app);
 require('./startup/config')();
 
-// Export app constant for tests
+// Export app for tests
 module.exports = app;

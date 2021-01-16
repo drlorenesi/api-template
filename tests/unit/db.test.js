@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config(); // Required to run test
 const pool = require('../../startup/db');
 
 let db;
