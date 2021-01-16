@@ -1,6 +1,6 @@
 # api-template
 
-Base template for an API using Express.
+Base template for an API using Express and a PostgeSQL database.
 
 Create a ".env" file at the root folder with the following info:
 
@@ -9,11 +9,11 @@ Create a ".env" file at the root folder with the following info:
 jwtPrivateKey=myPrivateKey
 
 ## DB Info
-PGHOST=ec2-3-211-176-230.compute-1.amazonaws.com
-PGDATABASE=da55kpajbtimqm
-PGUSER=rynvgimsgytatx
+PGHOST=host
+PGDATABASE=database
+PGUSER=user
 PGPORT=5432
-PGPASSWORD=667c646396fcf9babe0e2de58361d768b3357577ba690312b096a296977064cd
+PGPASSWORD=password
 ```
 
 Make sure to change these values according to your environment (development, testing or production).

@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "Base template for an API using Express.",
   "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "engines": {
+    "node": "15.5.0"
+  },
   "scripts": {
     "start": "NODE_ENV=production node server.js",
     "dev": "NODE_ENV=development DEBUG=app:* nodemon server.js",
-    "test": "NODE_ENV=testing jest --watch --verbose --coverage"
+    "test": "NODE_ENV=testing jest --watchAll --verbose --coverage"
   },
   "repository": {
     "type": "git",
@@ -27,6 +33,7 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "helmet": "^4.2.0",
+    "joi": "^17.3.0",
     "morgan": "^1.10.0",
     "pg": "^8.5.1",
     "winston": "^3.3.3"

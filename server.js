@@ -6,7 +6,9 @@ const port = process.env.PORT || 3000;
 
 app.listen(port, () =>
   console.log(
-    chalk.blue(`- Environment: ${env}`),
-    chalk.blue(`\n- Server started on port: ${port}`)
+    chalk.blue(`- Environment:`),
+    chalk.magenta(`${env}`),
+    chalk.blue(`\n- Server started on port:`),
+    chalk.magenta(`${port}`)
   )
 );
