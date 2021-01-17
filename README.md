@@ -1,8 +1,26 @@
-# api-template
+# API Template
 
-Base template for an API using Express and a PostgeSQL database.
+This project is base template for an API using [Express](https://expressjs.com/) and a [PostgeSQL](https://www.postgresql.org/) database.
 
-Create a ".env" file at the root folder with the following info:
+If you are hosting your database in [Heroku](https://heroku.com/) you can connect through your terminal with the following command (using your credentials):
+
+```bash
+psql -h xxx-xx-xxx-xxx-xxx.compute-1.amazonaws.com -d xx9n7dxxhxx -U yhxxzyxxxezhxx
+```
+
+To create the database, copy `dbexport.pgsql` from the `setup` folder to your home folder and run the following command from your terminal:
+
+```bash
+psql -h xxx-xx-xxx-xxx-xxx.compute-1.amazonaws.com -d xx9n7dxxhxx -U yhxxzyxxxezhxx  < dbexport.pgsql
+```
+
+You can back up your database at any time by running the following command:
+
+```bash
+pg_dump -h xxx-xx-xxx-xxx-xxx.compute-1.amazonaws.com -d xx9n7dxxhxx -U yhxxzyxxxezhxx  > dbexport.pgsql
+```
+
+Create an `.env` file at the root folder with the following info:
 
 ```text
 ## JSON Web Token key
@@ -24,8 +42,14 @@ To start the server run:
 npm start
 ```
 
-or, if you have nodemon globally installed, run the dev environment:
+or, run the dev environment:
 
 ```bash
 npm run dev
+```
+
+and finally, to run tests:
+
+```bash
+npm run test
 ```
