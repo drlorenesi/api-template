@@ -9,7 +9,7 @@ const invalidAccount = {
 const validAccount = {
   firstName: 'John',
   lastName: 'Test',
-  email: 'john@test.com',
+  email: 'john@registertest.com',
   password: '12345',
 };
 
@@ -32,7 +32,6 @@ describe('API Endpoint - /api/register', () => {
         const response = await request(app)
           .post('/api/register')
           .send(validAccount);
-        insertId = response.body.user_id;
         expect(response.statusCode).toBe(201);
       });
     });

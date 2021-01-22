@@ -1,25 +1,25 @@
 // Open Route
 const express = require('express');
-const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const chalk = require('chalk');
+const Joi = require('joi');
 const router = express.Router();
 const validate = require('../middleware/validate');
 const db = require('../startup/db');
 const debugDB = require('debug')('app:db');
 
-const validateUser = (user) => {
+const validateAccount = (account) => {
   const schema = Joi.object({
     firstName: Joi.string().min(2).required(),
     lastName: Joi.string().min(2).required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(4).required(),
   });
-  return schema.validate(user);
+  return schema.validate(account);
 };
 
 // Register new Account
-router.post('/', [validate(validateUser)], async (req, res) => {
+router.post('/', [validate(validateAccount)], async (req, res) => {
   // Check for duplicate email
   const { rows } = await db.query(
     'SELECT * FROM accounts WHERE email LIKE $1',
