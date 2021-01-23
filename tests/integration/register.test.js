@@ -18,7 +18,7 @@ describe('API Endpoint - /api/register', () => {
     await db.query('DELETE FROM accounts WHERE email = $1', [
       validAccount.email,
     ]);
-    db.end();
+    await db.end();
   });
   describe('POST /api/register', () => {
     it('- should return 400 if invalid account info is passed in', async () => {
@@ -27,13 +27,13 @@ describe('API Endpoint - /api/register', () => {
         .send(invalidAccount);
       expect(response.statusCode).toBe(400);
     });
-    describe('POST /api/register', () => {
-      it('- should return 201 if a valid account was added', async () => {
-        const response = await request(app)
-          .post('/api/register')
-          .send(validAccount);
-        expect(response.statusCode).toBe(201);
-      });
+  });
+  describe('POST /api/register', () => {
+    it('- should return 201 if a valid account was added', async () => {
+      const response = await request(app)
+        .post('/api/register')
+        .send(validAccount);
+      expect(response.statusCode).toBe(201);
     });
   });
 });

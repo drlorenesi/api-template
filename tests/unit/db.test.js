@@ -8,9 +8,9 @@ describe('DB connection test', () => {
     db = await pool.connect();
   });
   afterAll(async () => {
-    db.end();
+    await db.end();
   });
-  it('should connect to the database', async () => {
+  it('- should connect to the database', () => {
     expect(db._connected).toEqual(true);
   });
 });
