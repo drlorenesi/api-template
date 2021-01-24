@@ -17,7 +17,7 @@ const validateLogin = (loginInfo) => {
 // Log in user
 // -----------
 router.post('/', [validate(validateLogin)], async (req, res) => {
-  const { rows } = await db.query('SELECT * FROM accounts WHERE email = $1', [
+  const { rows } = await db.query('SELECT * FROM users WHERE email = $1', [
     req.body.email,
   ]);
   if (rows.length === 0)

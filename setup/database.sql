@@ -48,8 +48,8 @@ VALUES
   ('Administrator'),
   ('General Access');
 
-DROP TABLE IF EXISTS accounts;
-CREATE TABLE accounts (
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
 	user_id SERIAL PRIMARY KEY,
   role_id INT NOT NULL DEFAULT 2 REFERENCES roles (role_id),
   first_name VARCHAR(50) NOT NULL,
@@ -61,11 +61,7 @@ CREATE TABLE accounts (
   last_login TIMESTAMP
 );
 
-INSERT INTO accounts (role_id, first_name, last_name, email, pass) 
-VALUES
-  (1, 'John', 'Smith', 'john@gmail.com', '12345');
-
-INSERT INTO accounts (first_name, last_name, email, pass) 
+INSERT INTO users (first_name, last_name, email, pass) 
 VALUES
   ('Timmie', 'Lovel', 'tlovel0@craigslist.org', '12345'),
   ('Wilma', 'Iacomettii', 'wiacomettii1@statcounter.com', '12345'),
