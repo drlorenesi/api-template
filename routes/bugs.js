@@ -1,7 +1,7 @@
 // Open Route
 const express = require('express');
-const Joi = require('joi');
 const router = express.Router();
+const Joi = require('joi');
 
 const bugs = [
   { id: 1, description: 'Bug 1', userId: 1, resolved: true },

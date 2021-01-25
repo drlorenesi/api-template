@@ -15,9 +15,7 @@ const validAccount = {
 
 describe('API Endpoint - /api/register', () => {
   afterAll(async () => {
-    await db.query('DELETE FROM accounts WHERE email = $1', [
-      validAccount.email,
-    ]);
+    await db.query('DELETE FROM users WHERE email = $1', [validAccount.email]);
     await db.end();
   });
   describe('POST /api/register', () => {

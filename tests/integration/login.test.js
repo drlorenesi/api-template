@@ -24,9 +24,7 @@ describe('API Endpoint - /api/login', () => {
     await request(app).post('/api/register').send(validAccount);
   });
   afterAll(async () => {
-    await db.query('DELETE FROM accounts WHERE email = $1', [
-      validAccount.email,
-    ]);
+    await db.query('DELETE FROM users WHERE email = $1', [validAccount.email]);
     await db.end();
   });
   describe('POST /api/login', () => {

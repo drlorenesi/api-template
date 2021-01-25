@@ -1,16 +1,9 @@
 require('dotenv').config(); // Required to run test
-const pool = require('../../startup/db');
-
-let db;
+const db = require('../../startup/db');
 
 describe('DB connection test', () => {
-  beforeAll(async () => {
-    db = await pool.connect();
-  });
-  afterAll(async () => {
-    await db.end();
-  });
-  it('- should connect to the database', () => {
-    expect(db._connected).toEqual(true);
+  it('- should connect to the database and run a simple query', async () => {
+    const result = await db.query('SELECT 1');
+    expect(result.rowCount).toEqual(1);
   });
 });

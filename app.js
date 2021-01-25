@@ -3,7 +3,7 @@ const express = require('express');
 
 const app = express();
 
-if (app.get('env') === 'production') {
+if (process.env.NODE_ENV === 'production') {
   require('./startup/prod')(app);
 }
 

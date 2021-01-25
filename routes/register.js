@@ -1,12 +1,10 @@
 // Open Route
 const express = require('express');
-const bcrypt = require('bcrypt');
-const chalk = require('chalk');
-const Joi = require('joi');
 const router = express.Router();
+const bcrypt = require('bcrypt');
+const Joi = require('joi');
 const validate = require('../middleware/validate');
 const db = require('../startup/db');
-const debugDB = require('debug')('app:db');
 
 const validateRegistration = (account) => {
   const schema = Joi.object({
@@ -20,11 +18,11 @@ const validateRegistration = (account) => {
 
 // Register new Account
 router.post('/', [validate(validateRegistration)], async (req, res) => {
-  // Check for duplicate email
-  const { rows } = await db.query('SELECT * FROM users WHERE email LIKE $1', [
+  // Check if emaill is already registered
+  const search = await db.query('SELECT * FROM users WHERE email LIKE $1', [
     req.body.email,
   ]);
-  if (rows.length !== 0)
+  if (search.rows.length !== 0)
     return res.status(400).send('Please use another email.');
   let { firstName, lastName, email, password } = req.body;
   const salt = await bcrypt.genSalt(10);
@@ -34,7 +32,6 @@ router.post('/', [validate(validateRegistration)], async (req, res) => {
       VALUES ($1, $2, $3, $4) RETURNING *`,
     [firstName, lastName, email, password]
   );
-  debugDB(chalk.blue(`Inserted ${result.rowCount} record(s).`));
   res.status(201).send(result.rows[0]);
 });
 

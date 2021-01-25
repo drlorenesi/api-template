@@ -14,8 +14,6 @@ const validateLogin = (loginInfo) => {
   return schema.validate(loginInfo);
 };
 
-// Log in user
-// -----------
 router.post('/', [validate(validateLogin)], async (req, res) => {
   const { rows } = await db.query('SELECT * FROM users WHERE email = $1', [
     req.body.email,
@@ -34,7 +32,7 @@ router.post('/', [validate(validateLogin)], async (req, res) => {
     email: rows[0].email,
   };
   const token = generateAuthToken(payload, process.env.jwtPrivateKey);
-  res.status(200).header('x-auth-token', token).send(payload);
+  res.header('x-auth-token', token).send(payload);
 });
 
 module.exports = router;
