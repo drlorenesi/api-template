@@ -26,8 +26,6 @@
   },
   "homepage": "https://github.com/drlorenesi/api-template#readme",
   "dependencies": {
-    "@sentry/node": "^5.30.0",
-    "@sentry/tracing": "^5.30.0",
     "bcrypt": "^5.0.0",
     "chalk": "^4.1.0",
     "compression": "^1.7.4",
@@ -42,7 +40,8 @@
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
     "pg": "^8.5.1",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "winston-transport-sentry-node": "^0.7.0"
   },
   "devDependencies": {
     "jest": "^26.6.3",

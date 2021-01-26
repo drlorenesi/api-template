@@ -9,6 +9,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(helmet());
   app.use(compression());
 }
+
 require('./startup/logger');
 require('./startup/routes')(app);
 require('./startup/config')();
