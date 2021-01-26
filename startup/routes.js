@@ -7,6 +7,7 @@ const register = require('../routes/register');
 const login = require('../routes/login');
 const users = require('../routes/users');
 const movies = require('../routes/movies');
+const sentry = require('../routes/sentry');
 // Error middleware
 const error = require('../middleware/error');
 
@@ -23,6 +24,7 @@ module.exports = (app) => {
   app.use('/api/login', login);
   app.use('/api/users', users);
   app.use('/api/movies', movies);
+  app.use('/api/sentry', sentry);
   // Error middleware
   app.use(error);
 };
