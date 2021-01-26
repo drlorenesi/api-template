@@ -1,6 +1,7 @@
 // Dependencies
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 // Routes
 const bugs = require('../routes/bugs');
 const register = require('../routes/register');
@@ -14,6 +15,7 @@ module.exports = (app) => {
   // Middleware
   app.use(express.json());
   app.use(express.static('public'));
+  app.use(cors());
   if (app.get('env') === 'development') {
     app.use(morgan('dev'));
   }
