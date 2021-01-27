@@ -42,7 +42,10 @@ router.post('/', [validate(validateRegistration)], async (req, res) => {
     email: rows[0].email,
   };
   const token = generateAuthToken(payload, process.env.jwtPrivateKey);
-  res.header('x-auth-token', token).send(payload);
+  res
+    .header('x-auth-token', token)
+    .header('access-control-expose-headers', 'x-auth-token')
+    .send(payload);
 });
 
 module.exports = router;
