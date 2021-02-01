@@ -33,7 +33,7 @@ router.post('/', [validate(validateRegistration)], async (req, res) => {
       VALUES ($1, $2, $3, $4) RETURNING *`,
     [firstName, lastName, email, password]
   );
-  // // Create payload and send JWT so user can directly log in
+  // Create payload and send JWT so user can directly log in
   const payload = {
     userId: rows[0].user_id,
     roleId: rows[0].role_id,
