@@ -2,7 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
-const auth = require('../middleware/auth');
+// const auth = require('../middleware/auth');
+const restrict = require('../middleware/restrict');
 const validate = require('../middleware/validate');
 const db = require('../startup/db');
 

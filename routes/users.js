@@ -4,7 +4,6 @@ const router = express.Router();
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const auth = require('../middleware/auth');
-const admin = require('../middleware/admin');
 const validate = require('../middleware/validate');
 const db = require('../startup/db');
 
@@ -19,12 +18,12 @@ const validateUser = (user) => {
   return schema.validate(user);
 };
 
-router.get('/', [auth, admin], async (req, res) => {
+router.get('/', [auth], async (req, res) => {
   const result = await db.query('SELECT * FROM users');
   res.send(result.rows);
 });
 
-router.get('/:id', [auth, admin], async (req, res) => {
+router.get('/:id', [auth], async (req, res) => {
   // Search for user
   const search = await db.query('SELECT * FROM users WHERE user_id = $1', [
     req.params.id,

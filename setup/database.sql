@@ -84,6 +84,11 @@ VALUES
   ('Rockey', 'MacFadyen', 'rmacfadyeni@bandcamp.com', '12345'),
   ('Hillie', 'Stilly', 'hstillyj@canalblog.com', '12345');
 
+-- to update a user:
+-- UPDATE users 
+-- SET role_id=1
+-- WHERE user_id=22;
+
 DROP VIEW IF EXISTS show_movies;
 CREATE VIEW show_movies AS
     SELECT m.title, g.name, m.number_in_stock

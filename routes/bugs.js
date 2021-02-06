@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const bug = bugs.find((bug) => bug.id === parseInt(req.params.id, 10));
-  if (!bug) return res.status(404).send('This bug does not exist man.');
+  if (!bug) return res.status(404).send('This bug does not exist.');
   res.send(bug);
 });
 
