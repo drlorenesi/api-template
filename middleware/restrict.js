@@ -1,4 +1,4 @@
-// Middleware that expects an array of roleId's that are allowed to access resource.
+// Middleware that expects an array of roleId's that are allowed to access a resource.
 // Shoul ALWAYS be preceeded by 'auth' middleware to decode JWT.
 // Example: [auth, restrict([1, 2, 3])]
 module.exports = (param) => {

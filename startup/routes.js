@@ -5,7 +5,7 @@ const cors = require('cors');
 // Routes
 const bugs = require('../routes/bugs');
 const register = require('../routes/register');
-const login = require('../routes/login');
+const auth = require('../routes/auth');
 const users = require('../routes/users');
 const movies = require('../routes/movies');
 // Error middleware
@@ -22,7 +22,7 @@ module.exports = (app) => {
   // Routes
   app.use('/api/bugs', bugs);
   app.use('/api/register', register);
-  app.use('/api/login', login);
+  app.use('/api/auth', auth);
   app.use('/api/users', users);
   app.use('/api/movies', movies);
   // Error middleware
