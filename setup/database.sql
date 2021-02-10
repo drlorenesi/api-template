@@ -87,7 +87,7 @@ VALUES
 -- to update a user:
 -- UPDATE users 
 -- SET role_id=1
--- WHERE user_id=22;
+-- WHERE user_id=XX;
 
 DROP VIEW IF EXISTS show_movies;
 CREATE VIEW show_movies AS

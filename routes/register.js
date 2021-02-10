@@ -13,6 +13,7 @@ const validateRegistration = (account) => {
     lastName: Joi.string().min(2).required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(4).required(),
+    passwordConfirmation: Joi.string().min(4),
   });
   return schema.validate(account);
 };
