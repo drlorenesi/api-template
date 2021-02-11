@@ -84,14 +84,14 @@ VALUES
   ('Rockey', 'MacFadyen', 'rmacfadyeni@bandcamp.com', '12345'),
   ('Hillie', 'Stilly', 'hstillyj@canalblog.com', '12345');
 
+DROP VIEW IF EXISTS show_movies;
+CREATE VIEW show_movies AS
+    SELECT m.title, g.name, m.number_in_stock, m.daily_rental_rate 
+    FROM movies AS m
+    LEFT JOIN genres AS g ON m.genre_id = g.genre_id
+    ORDER BY name ASC;
+
 -- to update a user:
 -- UPDATE users 
 -- SET role_id=1
 -- WHERE user_id=XX;
-
-DROP VIEW IF EXISTS show_movies;
-CREATE VIEW show_movies AS
-    SELECT m.title, g.name, m.number_in_stock
-    FROM movies AS m
-    LEFT JOIN genres AS g ON m.genre_id = g.genre_id
-    ORDER BY name ASC;

@@ -20,7 +20,7 @@ const validateMovie = (movie) => {
 };
 
 router.get('/', [], async (req, res) => {
-  const result = await db.query('SELECT * FROM movies');
+  const result = await db.query('SELECT * FROM show_movies');
   res.send(result.rows);
 });
 

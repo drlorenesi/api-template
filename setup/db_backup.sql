@@ -5,7 +5,7 @@
 -- Dumped from database version 12.5 (Ubuntu 12.5-1.pgdg20.04+1)
 -- Dumped by pg_dump version 13.1
 
--- Started on 2021-01-24 07:48:16 CST
+-- Started on 2021-02-11 16:36:13 CST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -31,6 +31,7 @@ ALTER TABLE public.movies ALTER COLUMN movie_id DROP DEFAULT;
 ALTER TABLE public.genres ALTER COLUMN genre_id DROP DEFAULT;
 DROP SEQUENCE public.users_user_id_seq;
 DROP TABLE public.users;
+DROP VIEW public.show_movies;
 DROP SEQUENCE public.roles_role_id_seq;
 DROP TABLE public.roles;
 DROP SEQUENCE public.movies_movie_id_seq;
@@ -42,7 +43,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 203 (class 1259 OID 10951656)
+-- TOC entry 203 (class 1259 OID 14727736)
 -- Name: genres; Type: TABLE; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -55,7 +56,7 @@ CREATE TABLE public.genres (
 ALTER TABLE public.genres OWNER TO mfzjgctxhfnlxn;
 
 --
--- TOC entry 202 (class 1259 OID 10951654)
+-- TOC entry 202 (class 1259 OID 14727734)
 -- Name: genres_genre_id_seq; Type: SEQUENCE; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -71,7 +72,7 @@ CREATE SEQUENCE public.genres_genre_id_seq
 ALTER TABLE public.genres_genre_id_seq OWNER TO mfzjgctxhfnlxn;
 
 --
--- TOC entry 3988 (class 0 OID 0)
+-- TOC entry 3993 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: genres_genre_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mfzjgctxhfnlxn
 --
@@ -80,7 +81,7 @@ ALTER SEQUENCE public.genres_genre_id_seq OWNED BY public.genres.genre_id;
 
 
 --
--- TOC entry 205 (class 1259 OID 10951671)
+-- TOC entry 205 (class 1259 OID 14727744)
 -- Name: movies; Type: TABLE; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -96,7 +97,7 @@ CREATE TABLE public.movies (
 ALTER TABLE public.movies OWNER TO mfzjgctxhfnlxn;
 
 --
--- TOC entry 204 (class 1259 OID 10951669)
+-- TOC entry 204 (class 1259 OID 14727742)
 -- Name: movies_movie_id_seq; Type: SEQUENCE; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -112,7 +113,7 @@ CREATE SEQUENCE public.movies_movie_id_seq
 ALTER TABLE public.movies_movie_id_seq OWNER TO mfzjgctxhfnlxn;
 
 --
--- TOC entry 3989 (class 0 OID 0)
+-- TOC entry 3994 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: movies_movie_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mfzjgctxhfnlxn
 --
@@ -121,7 +122,7 @@ ALTER SEQUENCE public.movies_movie_id_seq OWNED BY public.movies.movie_id;
 
 
 --
--- TOC entry 207 (class 1259 OID 10951685)
+-- TOC entry 207 (class 1259 OID 14727761)
 -- Name: roles; Type: TABLE; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -134,7 +135,7 @@ CREATE TABLE public.roles (
 ALTER TABLE public.roles OWNER TO mfzjgctxhfnlxn;
 
 --
--- TOC entry 206 (class 1259 OID 10951683)
+-- TOC entry 206 (class 1259 OID 14727759)
 -- Name: roles_role_id_seq; Type: SEQUENCE; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -150,7 +151,7 @@ CREATE SEQUENCE public.roles_role_id_seq
 ALTER TABLE public.roles_role_id_seq OWNER TO mfzjgctxhfnlxn;
 
 --
--- TOC entry 3990 (class 0 OID 0)
+-- TOC entry 3995 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: roles_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mfzjgctxhfnlxn
 --
@@ -159,7 +160,24 @@ ALTER SEQUENCE public.roles_role_id_seq OWNED BY public.roles.role_id;
 
 
 --
--- TOC entry 209 (class 1259 OID 10951696)
+-- TOC entry 210 (class 1259 OID 14727787)
+-- Name: show_movies; Type: VIEW; Schema: public; Owner: mfzjgctxhfnlxn
+--
+
+CREATE VIEW public.show_movies AS
+ SELECT m.title,
+    g.name,
+    m.number_in_stock,
+    m.daily_rental_rate
+   FROM (public.movies m
+     LEFT JOIN public.genres g ON ((m.genre_id = g.genre_id)))
+  ORDER BY g.name;
+
+
+ALTER TABLE public.show_movies OWNER TO mfzjgctxhfnlxn;
+
+--
+-- TOC entry 209 (class 1259 OID 14727769)
 -- Name: users; Type: TABLE; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -179,7 +197,7 @@ CREATE TABLE public.users (
 ALTER TABLE public.users OWNER TO mfzjgctxhfnlxn;
 
 --
--- TOC entry 208 (class 1259 OID 10951694)
+-- TOC entry 208 (class 1259 OID 14727767)
 -- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -195,7 +213,7 @@ CREATE SEQUENCE public.users_user_id_seq
 ALTER TABLE public.users_user_id_seq OWNER TO mfzjgctxhfnlxn;
 
 --
--- TOC entry 3991 (class 0 OID 0)
+-- TOC entry 3996 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mfzjgctxhfnlxn
 --
@@ -204,7 +222,7 @@ ALTER SEQUENCE public.users_user_id_seq OWNED BY public.users.user_id;
 
 
 --
--- TOC entry 3829 (class 2604 OID 10951659)
+-- TOC entry 3833 (class 2604 OID 14727739)
 -- Name: genres genre_id; Type: DEFAULT; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -212,7 +230,7 @@ ALTER TABLE ONLY public.genres ALTER COLUMN genre_id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 3830 (class 2604 OID 10951674)
+-- TOC entry 3834 (class 2604 OID 14727747)
 -- Name: movies movie_id; Type: DEFAULT; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -220,7 +238,7 @@ ALTER TABLE ONLY public.movies ALTER COLUMN movie_id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 3832 (class 2604 OID 10951688)
+-- TOC entry 3836 (class 2604 OID 14727764)
 -- Name: roles role_id; Type: DEFAULT; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -228,7 +246,7 @@ ALTER TABLE ONLY public.roles ALTER COLUMN role_id SET DEFAULT nextval('public.r
 
 
 --
--- TOC entry 3833 (class 2604 OID 10951699)
+-- TOC entry 3837 (class 2604 OID 14727772)
 -- Name: users user_id; Type: DEFAULT; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -236,7 +254,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.u
 
 
 --
--- TOC entry 3975 (class 0 OID 10951656)
+-- TOC entry 3980 (class 0 OID 14727736)
 -- Dependencies: 203
 -- Data for Name: genres; Type: TABLE DATA; Schema: public; Owner: mfzjgctxhfnlxn
 --
@@ -250,7 +268,7 @@ COPY public.genres (genre_id, name) FROM stdin;
 
 
 --
--- TOC entry 3977 (class 0 OID 10951671)
+-- TOC entry 3982 (class 0 OID 14727744)
 -- Dependencies: 205
 -- Data for Name: movies; Type: TABLE DATA; Schema: public; Owner: mfzjgctxhfnlxn
 --
@@ -271,7 +289,7 @@ COPY public.movies (movie_id, title, number_in_stock, daily_rental_rate, genre_i
 
 
 --
--- TOC entry 3979 (class 0 OID 10951685)
+-- TOC entry 3984 (class 0 OID 14727761)
 -- Dependencies: 207
 -- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: mfzjgctxhfnlxn
 --
@@ -283,38 +301,38 @@ COPY public.roles (role_id, role_name) FROM stdin;
 
 
 --
--- TOC entry 3981 (class 0 OID 10951696)
+-- TOC entry 3986 (class 0 OID 14727769)
 -- Dependencies: 209
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
 COPY public.users (user_id, role_id, first_name, last_name, email, pass, activated, created_on, last_login) FROM stdin;
-1	1	John	Smith	john@gmail.com	12345	\N	2021-01-24 13:47:19.364854	\N
-2	2	Timmie	Lovel	tlovel0@craigslist.org	12345	\N	2021-01-24 13:47:26.955079	\N
-3	2	Wilma	Iacomettii	wiacomettii1@statcounter.com	12345	\N	2021-01-24 13:47:26.955079	\N
-4	2	Jackson	Spaunton	jspaunton2@irs.gov	12345	\N	2021-01-24 13:47:26.955079	\N
-5	2	Ennis	Mabbott	emabbott3@123-reg.co.uk	12345	\N	2021-01-24 13:47:26.955079	\N
-6	2	Reinold	Bater	rbater4@fastcompany.com	12345	\N	2021-01-24 13:47:26.955079	\N
-7	2	Melicent	Dovinson	mdovinson5@google.cn	12345	\N	2021-01-24 13:47:26.955079	\N
-8	2	Rozele	Beynke	rbeynke6@mysql.com	12345	\N	2021-01-24 13:47:26.955079	\N
-9	2	Joshuah	Drover	jdrover7@illinois.edu	12345	\N	2021-01-24 13:47:26.955079	\N
-10	2	Lia	Prazer	lprazer8@scribd.com	12345	\N	2021-01-24 13:47:26.955079	\N
-11	2	Tiler	Harbach	tharbach9@marriott.com	12345	\N	2021-01-24 13:47:26.955079	\N
-12	2	Jeremy	Threadgill	jthreadgilla@newyorker.com	12345	\N	2021-01-24 13:47:26.955079	\N
-13	2	Monroe	Spriddle	mspriddleb@a8.net	12345	\N	2021-01-24 13:47:26.955079	\N
-14	2	Harley	Cockrem	hcockremc@godaddy.com	12345	\N	2021-01-24 13:47:26.955079	\N
-15	2	Luciano	Moorcroft	lmoorcroftd@ft.com	12345	\N	2021-01-24 13:47:26.955079	\N
-16	2	Giacomo	Trout	gtroute@wsj.com	12345	\N	2021-01-24 13:47:26.955079	\N
-17	2	Jarrod	Headland	jheadlandf@blogtalkradio.com	12345	\N	2021-01-24 13:47:26.955079	\N
-18	2	Arthur	Jandl	ajandlg@europa.eu	12345	\N	2021-01-24 13:47:26.955079	\N
-19	2	Edee	Wallice	ewalliceh@naver.com	12345	\N	2021-01-24 13:47:26.955079	\N
-20	2	Rockey	MacFadyen	rmacfadyeni@bandcamp.com	12345	\N	2021-01-24 13:47:26.955079	\N
-21	2	Hillie	Stilly	hstillyj@canalblog.com	12345	\N	2021-01-24 13:47:26.955079	\N
+1	2	Timmie	Lovel	tlovel0@craigslist.org	12345	\N	2021-02-11 22:26:18.872248	\N
+2	2	Wilma	Iacomettii	wiacomettii1@statcounter.com	12345	\N	2021-02-11 22:26:18.872248	\N
+3	2	Jackson	Spaunton	jspaunton2@irs.gov	12345	\N	2021-02-11 22:26:18.872248	\N
+4	2	Ennis	Mabbott	emabbott3@123-reg.co.uk	12345	\N	2021-02-11 22:26:18.872248	\N
+5	2	Reinold	Bater	rbater4@fastcompany.com	12345	\N	2021-02-11 22:26:18.872248	\N
+6	2	Melicent	Dovinson	mdovinson5@google.cn	12345	\N	2021-02-11 22:26:18.872248	\N
+7	2	Rozele	Beynke	rbeynke6@mysql.com	12345	\N	2021-02-11 22:26:18.872248	\N
+8	2	Joshuah	Drover	jdrover7@illinois.edu	12345	\N	2021-02-11 22:26:18.872248	\N
+9	2	Lia	Prazer	lprazer8@scribd.com	12345	\N	2021-02-11 22:26:18.872248	\N
+10	2	Tiler	Harbach	tharbach9@marriott.com	12345	\N	2021-02-11 22:26:18.872248	\N
+11	2	Jeremy	Threadgill	jthreadgilla@newyorker.com	12345	\N	2021-02-11 22:26:18.872248	\N
+12	2	Monroe	Spriddle	mspriddleb@a8.net	12345	\N	2021-02-11 22:26:18.872248	\N
+13	2	Harley	Cockrem	hcockremc@godaddy.com	12345	\N	2021-02-11 22:26:18.872248	\N
+14	2	Luciano	Moorcroft	lmoorcroftd@ft.com	12345	\N	2021-02-11 22:26:18.872248	\N
+15	2	Giacomo	Trout	gtroute@wsj.com	12345	\N	2021-02-11 22:26:18.872248	\N
+16	2	Jarrod	Headland	jheadlandf@blogtalkradio.com	12345	\N	2021-02-11 22:26:18.872248	\N
+17	2	Arthur	Jandl	ajandlg@europa.eu	12345	\N	2021-02-11 22:26:18.872248	\N
+18	2	Edee	Wallice	ewalliceh@naver.com	12345	\N	2021-02-11 22:26:18.872248	\N
+19	2	Rockey	MacFadyen	rmacfadyeni@bandcamp.com	12345	\N	2021-02-11 22:26:18.872248	\N
+20	2	Hillie	Stilly	hstillyj@canalblog.com	12345	\N	2021-02-11 22:26:18.872248	\N
+21	1	Test	User	test@test.com	$2b$10$95gBqfeKgkrs6iZM7.xkReRPdRL1rMhPg6r0kMRtoqeSXAZ0v0EJ2	\N	2021-02-11 22:34:17.703493	\N
 \.
 
 
 --
--- TOC entry 3992 (class 0 OID 0)
+-- TOC entry 3997 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: genres_genre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mfzjgctxhfnlxn
 --
@@ -323,7 +341,7 @@ SELECT pg_catalog.setval('public.genres_genre_id_seq', 4, true);
 
 
 --
--- TOC entry 3993 (class 0 OID 0)
+-- TOC entry 3998 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: movies_movie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mfzjgctxhfnlxn
 --
@@ -332,7 +350,7 @@ SELECT pg_catalog.setval('public.movies_movie_id_seq', 11, true);
 
 
 --
--- TOC entry 3994 (class 0 OID 0)
+-- TOC entry 3999 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: roles_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mfzjgctxhfnlxn
 --
@@ -341,7 +359,7 @@ SELECT pg_catalog.setval('public.roles_role_id_seq', 2, true);
 
 
 --
--- TOC entry 3995 (class 0 OID 0)
+-- TOC entry 4000 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mfzjgctxhfnlxn
 --
@@ -350,7 +368,7 @@ SELECT pg_catalog.setval('public.users_user_id_seq', 21, true);
 
 
 --
--- TOC entry 3837 (class 2606 OID 10951661)
+-- TOC entry 3841 (class 2606 OID 14727741)
 -- Name: genres genres_pkey; Type: CONSTRAINT; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -359,7 +377,7 @@ ALTER TABLE ONLY public.genres
 
 
 --
--- TOC entry 3839 (class 2606 OID 10951677)
+-- TOC entry 3843 (class 2606 OID 14727750)
 -- Name: movies movies_pkey; Type: CONSTRAINT; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -368,7 +386,7 @@ ALTER TABLE ONLY public.movies
 
 
 --
--- TOC entry 3841 (class 2606 OID 10951690)
+-- TOC entry 3845 (class 2606 OID 14727766)
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -377,7 +395,7 @@ ALTER TABLE ONLY public.roles
 
 
 --
--- TOC entry 3843 (class 2606 OID 10951705)
+-- TOC entry 3847 (class 2606 OID 14727778)
 -- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -386,7 +404,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 3845 (class 2606 OID 10951703)
+-- TOC entry 3849 (class 2606 OID 14727776)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -395,7 +413,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 3846 (class 2606 OID 10951678)
+-- TOC entry 3850 (class 2606 OID 14727751)
 -- Name: movies movies_genre_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -404,7 +422,7 @@ ALTER TABLE ONLY public.movies
 
 
 --
--- TOC entry 3847 (class 2606 OID 10951706)
+-- TOC entry 3851 (class 2606 OID 14727779)
 -- Name: users users_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
@@ -413,15 +431,15 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 3987 (class 0 OID 0)
--- Dependencies: 644
+-- TOC entry 3992 (class 0 OID 0)
+-- Dependencies: 648
 -- Name: LANGUAGE plpgsql; Type: ACL; Schema: -; Owner: postgres
 --
 
 GRANT ALL ON LANGUAGE plpgsql TO mfzjgctxhfnlxn;
 
 
--- Completed on 2021-01-24 07:48:27 CST
+-- Completed on 2021-02-11 16:36:27 CST
 
 --
 -- PostgreSQL database dump complete
