@@ -5,7 +5,7 @@
 -- Dumped from database version 12.5 (Ubuntu 12.5-1.pgdg20.04+1)
 -- Dumped by pg_dump version 13.1
 
--- Started on 2021-02-11 16:36:13 CST
+-- Started on 2021-02-11 16:47:09 CST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -160,18 +160,18 @@ ALTER SEQUENCE public.roles_role_id_seq OWNED BY public.roles.role_id;
 
 
 --
--- TOC entry 210 (class 1259 OID 14727787)
+-- TOC entry 210 (class 1259 OID 14728092)
 -- Name: show_movies; Type: VIEW; Schema: public; Owner: mfzjgctxhfnlxn
 --
 
 CREATE VIEW public.show_movies AS
- SELECT m.title,
-    g.name,
+ SELECT m.movie_id,
+    m.title,
+    g.name AS genre,
     m.number_in_stock,
     m.daily_rental_rate
    FROM (public.movies m
-     LEFT JOIN public.genres g ON ((m.genre_id = g.genre_id)))
-  ORDER BY g.name;
+     LEFT JOIN public.genres g ON ((m.genre_id = g.genre_id)));
 
 
 ALTER TABLE public.show_movies OWNER TO mfzjgctxhfnlxn;
@@ -439,7 +439,7 @@ ALTER TABLE ONLY public.users
 GRANT ALL ON LANGUAGE plpgsql TO mfzjgctxhfnlxn;
 
 
--- Completed on 2021-02-11 16:36:27 CST
+-- Completed on 2021-02-11 16:47:29 CST
 
 --
 -- PostgreSQL database dump complete
