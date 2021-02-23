@@ -9,9 +9,7 @@ const db = require('../startup/db');
 
 const validateMovie = (movie) => {
   const schema = Joi.object({
-    title: Joi.string()
-      .regex(/^[a-zA-Z\p{L} /'.-]{2,45}$/u)
-      .required(),
+    title: Joi.string().min(1).required(),
     numberInStock: Joi.number().integer().min(0).required(),
     dailyRentalRate: Joi.number().precision(2).required(),
     genreId: Joi.number().required(),
@@ -26,9 +24,10 @@ router.get('/', [], async (req, res) => {
 
 router.get('/:id', [], async (req, res) => {
   // Search for movie
-  const search = await db.query('SELECT * FROM movies WHERE movie_id = $1', [
-    req.params.id,
-  ]);
+  const search = await db.query(
+    'SELECT * FROM show_movies WHERE movie_id = $1',
+    [req.params.id]
+  );
   if (search.rows.length === 0)
     return res
       .status(404)

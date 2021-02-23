@@ -86,9 +86,8 @@ VALUES
 
 DROP VIEW IF EXISTS show_movies;
 CREATE VIEW show_movies AS
-    SELECT m.movie_id, m.title, g.name AS genre, m.number_in_stock, m.daily_rental_rate 
-    FROM movies AS m
-    LEFT JOIN genres AS g ON m.genre_id = g.genre_id
+    SELECT movie_id, title, genre_id, number_in_stock, daily_rental_rate
+    FROM movies;
 
 -- to update a user:
 -- UPDATE users 
