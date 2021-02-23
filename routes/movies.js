@@ -9,7 +9,7 @@ const db = require('../startup/db');
 
 const validateMovie = (movie) => {
   const schema = Joi.object({
-    title: Joi.string().min(1).required(),
+    title: Joi.string().min(2).required(),
     numberInStock: Joi.number().integer().min(0).required(),
     dailyRentalRate: Joi.number().precision(2).required(),
     genreId: Joi.number().required(),
