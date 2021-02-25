@@ -9,6 +9,8 @@ const auth = require('../routes/auth');
 const users = require('../routes/users');
 const movies = require('../routes/movies');
 const genres = require('../routes/genres');
+// Stats
+const moviesByGenre = require('../routes/stats/moviesByGenre');
 // Error middleware
 const error = require('../middleware/error');
 
@@ -27,6 +29,8 @@ module.exports = (app) => {
   app.use('/api/users', users);
   app.use('/api/movies', movies);
   app.use('/api/genres', genres);
+  // Stats
+  app.use('/api/stats/moviesbygenre', moviesByGenre);
   // Error middleware
   app.use(error);
 };

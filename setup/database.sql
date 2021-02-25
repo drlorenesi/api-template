@@ -89,6 +89,13 @@ CREATE VIEW show_movies AS
     SELECT movie_id, title, genre_id, number_in_stock, daily_rental_rate
     FROM movies;
 
+DROP VIEW IF EXISTS movies_by_genre;
+CREATE VIEW movies_by_genre AS
+  SELECT g.name AS genre, COUNT(*) AS total
+  FROM genres AS g
+  LEFT JOIN movies AS m ON g.genre_id = m.genre_id
+  GROUP BY g.name;
+
 -- to update a user:
 -- UPDATE users 
 -- SET role_id=1
