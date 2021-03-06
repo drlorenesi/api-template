@@ -9,6 +9,7 @@ const auth = require('../routes/auth');
 const users = require('../routes/users');
 const movies = require('../routes/movies');
 const genres = require('../routes/genres');
+const dates = require('../routes/dates');
 // Stats
 const moviesByGenre = require('../routes/stats/moviesByGenre');
 // Error middleware
@@ -29,6 +30,7 @@ module.exports = (app) => {
   app.use('/api/users', users);
   app.use('/api/movies', movies);
   app.use('/api/genres', genres);
+  app.use('/api/dates', dates);
   // Stats
   app.use('/api/stats/moviesbygenre', moviesByGenre);
   // Error middleware

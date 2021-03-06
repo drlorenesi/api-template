@@ -1,23 +1,22 @@
-// REFACTOR USING DATE-FNS
-// const moment = require('moment');
+const dayjs = require('dayjs');
 
-// function firstOfMonth(date) {
-//   if (date === undefined || !Boolean(date)) {
-//     date = moment().startOf('month').format('YYYY-MM-DD');
-//   } else if (date && moment(date).isValid()) {
-//     date = moment(date).format('YYYY-MM-DD');
-//   }
-//   return date;
-// }
+function startOfMonth(date) {
+  if (date === undefined || !Boolean(date)) {
+    date = dayjs().startOf('month').format('YYYY-MM-DD');
+  } else if (date && dayjs(date).isValid()) {
+    date = dayjs(date).format('YYYY-MM-DD');
+  }
+  return date;
+}
 
-// function today(date) {
-//   if (date === undefined || !Boolean(date)) {
-//     date = moment().format('YYYY-MM-DD');
-//   } else if (date && moment(date).isValid()) {
-//     date = moment(date).format('YYYY-MM-DD');
-//   }
-//   return date;
-// }
+function today(date) {
+  if (date === undefined || !Boolean(date)) {
+    date = dayjs().format('YYYY-MM-DD');
+  } else if (date && dayjs(date).isValid()) {
+    date = dayjs(date).format('YYYY-MM-DD');
+  }
+  return date;
+}
 
-// exports.firstOfMonth = firstOfMonth;
-// exports.today = today;
+exports.startOfMonth = startOfMonth;
+exports.today = today;
